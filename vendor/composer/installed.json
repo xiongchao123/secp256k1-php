@@ -1,31 +1,30 @@
 [
     {
         "name": "doctrine/instantiator",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "1.1.0",
+        "version_normalized": "1.1.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/doctrine/instantiator.git",
-            "reference": "870a62d7b0d63d4e0ffa8f2ce3ab7c8a53d1846d"
+            "reference": "185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda"
         },
         "dist": {
             "type": "zip",
-            "url": "https://files.phpcomposer.com/files/doctrine/instantiator/870a62d7b0d63d4e0ffa8f2ce3ab7c8a53d1846d.zip",
-            "reference": "870a62d7b0d63d4e0ffa8f2ce3ab7c8a53d1846d",
+            "url": "https://files.phpcomposer.com/files/doctrine/instantiator/185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda.zip",
+            "reference": "185b8868aa9bf7159f5f953ed5afb2d7fcdc3bda",
             "shasum": ""
         },
         "require": {
             "php": "^7.1"
         },
         "require-dev": {
-            "doctrine/coding-standard": "^4.0",
+            "athletic/athletic": "~0.1.8",
             "ext-pdo": "*",
             "ext-phar": "*",
-            "phpbench/phpbench": "^0.13",
-            "phpstan/phpstan-shim": "^0.9.2",
-            "phpunit/phpunit": "^7.0"
+            "phpunit/phpunit": "^6.2.3",
+            "squizlabs/php_codesniffer": "^3.0.2"
         },
-        "time": "2018-03-05T09:41:42+00:00",
+        "time": "2017-07-22T11:58:36+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -58,31 +57,31 @@
     },
     {
         "name": "fgrosse/phpasn1",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "2.0.1",
+        "version_normalized": "2.0.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/fgrosse/PHPASN1.git",
-            "reference": "734e1a94dfb292199f4f285be99a5645ea66fb58"
+            "reference": "0e27e71e3d0a8d5c3f1471d727fd9574d920f33c"
         },
         "dist": {
             "type": "zip",
-            "url": "https://files.phpcomposer.com/files/fgrosse/PHPASN1/734e1a94dfb292199f4f285be99a5645ea66fb58.zip",
-            "reference": "734e1a94dfb292199f4f285be99a5645ea66fb58",
+            "url": "https://files.phpcomposer.com/files/fgrosse/PHPASN1/0e27e71e3d0a8d5c3f1471d727fd9574d920f33c.zip",
+            "reference": "0e27e71e3d0a8d5c3f1471d727fd9574d920f33c",
             "shasum": ""
         },
         "require": {
+            "ext-gmp": "*",
             "php": ">=7.0.0"
         },
         "require-dev": {
             "phpunit/phpunit": "~6.3",
-            "satooshi/php-coveralls": "~2.0"
+            "satooshi/php-coveralls": "dev-master"
         },
         "suggest": {
-            "ext-gmp": "GMP is the preferred extension for big integer calculations",
             "php-curl": "For loading OID information from the web if they have not bee defined statically"
         },
-        "time": "2018-03-31T08:32:19+00:00",
+        "time": "2017-12-17T10:21:51+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -129,17 +128,17 @@
     },
     {
         "name": "mdanter/ecc",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "v0.5.0",
+        "version_normalized": "0.5.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/phpecc/phpecc.git",
-            "reference": "7c77251d3a7f52ef4ebc1c023452aad96ab13c83"
+            "reference": "ed5c6d496f5310de1b7071b8375fafa3559a1344"
         },
         "dist": {
             "type": "zip",
-            "url": "https://files.phpcomposer.com/files/phpecc/phpecc/7c77251d3a7f52ef4ebc1c023452aad96ab13c83.zip",
-            "reference": "7c77251d3a7f52ef4ebc1c023452aad96ab13c83",
+            "url": "https://files.phpcomposer.com/files/phpecc/phpecc/ed5c6d496f5310de1b7071b8375fafa3559a1344.zip",
+            "reference": "ed5c6d496f5310de1b7071b8375fafa3559a1344",
             "shasum": ""
         },
         "require": {
@@ -152,7 +151,7 @@
             "squizlabs/php_codesniffer": "~2",
             "symfony/yaml": "~2.6|~3.0"
         },
-        "time": "2018-02-12T08:51:13+00:00",
+        "time": "2017-10-09T16:05:37+00:00",
         "type": "library",
         "installation-source": "source",
         "autoload": {
@@ -199,57 +198,6 @@
             "phpecc",
             "secp256k1",
             "secp256r1"
-        ]
-    },
-    {
-        "name": "olegabr/keccak",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/olegabr/php-keccak.git",
-            "reference": "94f19f762a260803c0ff146e40de67b59d11de25"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://files.phpcomposer.com/files/olegabr/php-keccak/94f19f762a260803c0ff146e40de67b59d11de25.zip",
-            "reference": "94f19f762a260803c0ff146e40de67b59d11de25",
-            "shasum": ""
-        },
-        "require": {
-            "php": ">=5.6"
-        },
-        "require-dev": {
-            "php": ">=5.6",
-            "phpunit/phpunit": "5.7.27|6.5",
-            "satooshi/php-coveralls": "~2"
-        },
-        "time": "2018-03-14T03:03:27+00:00",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "psr-4": {
-                "kornrunner\\": "src"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Boris Momcilovic",
-                "homepage": "https://github.com/kornrunner/php-keccak"
-            },
-            {
-                "name": "Oleg Abrosimov",
-                "homepage": "https://github.com/olegabr/php-keccak"
-            }
-        ],
-        "description": "Pure PHP implementation of Keccak with PHP 5.6+ support",
-        "keywords": [
-            "keccak",
-            "sha-3"
         ]
     },
     {
@@ -412,17 +360,17 @@
     },
     {
         "name": "phpspec/prophecy",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "1.7.6",
+        "version_normalized": "1.7.6.0",
         "source": {
             "type": "git",
             "url": "https://github.com/phpspec/prophecy.git",
-            "reference": "6471ce6aa91ec03e9fdf3ca188e277104d8a7d1c"
+            "reference": "33a7e3c4fda54e912ff6338c48823bd5c0f0b712"
         },
         "dist": {
             "type": "zip",
-            "url": "https://files.phpcomposer.com/files/phpspec/prophecy/6471ce6aa91ec03e9fdf3ca188e277104d8a7d1c.zip",
-            "reference": "6471ce6aa91ec03e9fdf3ca188e277104d8a7d1c",
+            "url": "https://files.phpcomposer.com/files/phpspec/prophecy/33a7e3c4fda54e912ff6338c48823bd5c0f0b712.zip",
+            "reference": "33a7e3c4fda54e912ff6338c48823bd5c0f0b712",
             "shasum": ""
         },
         "require": {
@@ -434,9 +382,9 @@
         },
         "require-dev": {
             "phpspec/phpspec": "^2.5|^3.2",
-            "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.5 || ^7.1"
+            "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.5"
         },
-        "time": "2018-05-09T14:00:54+00:00",
+        "time": "2018-04-18T13:57:24+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -477,8 +425,8 @@
     },
     {
         "name": "phpunit/php-code-coverage",
-        "version": "2.2.x-dev",
-        "version_normalized": "2.2.9999999.9999999-dev",
+        "version": "2.2.4",
+        "version_normalized": "2.2.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
@@ -541,8 +489,8 @@
     },
     {
         "name": "phpunit/php-file-iterator",
-        "version": "1.4.x-dev",
-        "version_normalized": "1.4.9999999.9999999-dev",
+        "version": "1.4.5",
+        "version_normalized": "1.4.5.0",
         "source": {
             "type": "git",
             "url": "https://github.com/sebastianbergmann/php-file-iterator.git",
@@ -633,17 +581,17 @@
     },
     {
         "name": "phpunit/php-timer",
-        "version": "1.0.x-dev",
-        "version_normalized": "1.0.9999999.9999999-dev",
+        "version": "1.0.9",
+        "version_normalized": "1.0.9.0",
         "source": {
             "type": "git",
             "url": "https://github.com/sebastianbergmann/php-timer.git",
-            "reference": "9513098641797ce5f459dbc1de5a54c29b0ec1fb"
+            "reference": "3dcf38ca72b158baf0bc245e9184d3fdffa9c46f"
         },
         "dist": {
             "type": "zip",
-            "url": "https://files.phpcomposer.com/files/sebastianbergmann/php-timer/9513098641797ce5f459dbc1de5a54c29b0ec1fb.zip",
-            "reference": "9513098641797ce5f459dbc1de5a54c29b0ec1fb",
+            "url": "https://files.phpcomposer.com/files/sebastianbergmann/php-timer/3dcf38ca72b158baf0bc245e9184d3fdffa9c46f.zip",
+            "reference": "3dcf38ca72b158baf0bc245e9184d3fdffa9c46f",
             "shasum": ""
         },
         "require": {
@@ -652,7 +600,7 @@
         "require-dev": {
             "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.0"
         },
-        "time": "2018-01-06T05:27:16+00:00",
+        "time": "2017-02-26T11:10:40+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -684,17 +632,17 @@
     },
     {
         "name": "phpunit/php-token-stream",
-        "version": "1.4.x-dev",
-        "version_normalized": "1.4.9999999.9999999-dev",
+        "version": "1.4.12",
+        "version_normalized": "1.4.12.0",
         "source": {
             "type": "git",
             "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-            "reference": "58bd196ce8bc49389307b3787934a5117db80fea"
+            "reference": "1ce90ba27c42e4e44e6d8458241466380b51fa16"
         },
         "dist": {
             "type": "zip",
-            "url": "https://files.phpcomposer.com/files/sebastianbergmann/php-token-stream/58bd196ce8bc49389307b3787934a5117db80fea.zip",
-            "reference": "58bd196ce8bc49389307b3787934a5117db80fea",
+            "url": "https://files.phpcomposer.com/files/sebastianbergmann/php-token-stream/1ce90ba27c42e4e44e6d8458241466380b51fa16.zip",
+            "reference": "1ce90ba27c42e4e44e6d8458241466380b51fa16",
             "shasum": ""
         },
         "require": {
@@ -704,7 +652,7 @@
         "require-dev": {
             "phpunit/phpunit": "~4.2"
         },
-        "time": "2017-12-04T15:11:28+00:00",
+        "time": "2017-12-04T08:55:13+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -735,17 +683,17 @@
     },
     {
         "name": "phpunit/phpunit",
-        "version": "4.8.x-dev",
-        "version_normalized": "4.8.9999999.9999999-dev",
+        "version": "4.8.36",
+        "version_normalized": "4.8.36.0",
         "source": {
             "type": "git",
             "url": "https://github.com/sebastianbergmann/phpunit.git",
-            "reference": "18e5f52e8412d23e739f7d8744e177039860e800"
+            "reference": "46023de9a91eec7dfb06cc56cb4e260017298517"
         },
         "dist": {
             "type": "zip",
-            "url": "https://files.phpcomposer.com/files/sebastianbergmann/phpunit/18e5f52e8412d23e739f7d8744e177039860e800.zip",
-            "reference": "18e5f52e8412d23e739f7d8744e177039860e800",
+            "url": "https://files.phpcomposer.com/files/sebastianbergmann/phpunit/46023de9a91eec7dfb06cc56cb4e260017298517.zip",
+            "reference": "46023de9a91eec7dfb06cc56cb4e260017298517",
             "shasum": ""
         },
         "require": {
@@ -772,7 +720,7 @@
         "suggest": {
             "phpunit/php-invoker": "~1.1"
         },
-        "time": "2017-06-23T12:44:27+00:00",
+        "time": "2017-06-21T08:07:12+00:00",
         "bin": [
             "phpunit"
         ],
@@ -809,8 +757,8 @@
     },
     {
         "name": "phpunit/phpunit-mock-objects",
-        "version": "2.3.x-dev",
-        "version_normalized": "2.3.9999999.9999999-dev",
+        "version": "2.3.8",
+        "version_normalized": "2.3.8.0",
         "source": {
             "type": "git",
             "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
@@ -867,17 +815,17 @@
     },
     {
         "name": "sebastian/comparator",
-        "version": "1.2.x-dev",
-        "version_normalized": "1.2.9999999.9999999-dev",
+        "version": "1.2.4",
+        "version_normalized": "1.2.4.0",
         "source": {
             "type": "git",
             "url": "https://github.com/sebastianbergmann/comparator.git",
-            "reference": "18a5d97c25f408f48acaf6d1b9f4079314c5996a"
+            "reference": "2b7424b55f5047b47ac6e5ccb20b2aea4011d9be"
         },
         "dist": {
             "type": "zip",
-            "url": "https://files.phpcomposer.com/files/sebastianbergmann/comparator/18a5d97c25f408f48acaf6d1b9f4079314c5996a.zip",
-            "reference": "18a5d97c25f408f48acaf6d1b9f4079314c5996a",
+            "url": "https://files.phpcomposer.com/files/sebastianbergmann/comparator/2b7424b55f5047b47ac6e5ccb20b2aea4011d9be.zip",
+            "reference": "2b7424b55f5047b47ac6e5ccb20b2aea4011d9be",
             "shasum": ""
         },
         "require": {
@@ -888,7 +836,7 @@
         "require-dev": {
             "phpunit/phpunit": "~4.4"
         },
-        "time": "2017-03-07T10:34:43+00:00",
+        "time": "2017-01-29T09:50:25+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -933,8 +881,8 @@
     },
     {
         "name": "sebastian/diff",
-        "version": "1.4.x-dev",
-        "version_normalized": "1.4.9999999.9999999-dev",
+        "version": "1.4.3",
+        "version_normalized": "1.4.3.0",
         "source": {
             "type": "git",
             "url": "https://github.com/sebastianbergmann/diff.git",
@@ -987,26 +935,26 @@
     },
     {
         "name": "sebastian/environment",
-        "version": "1.3.x-dev",
-        "version_normalized": "1.3.9999999.9999999-dev",
+        "version": "1.3.8",
+        "version_normalized": "1.3.8.0",
         "source": {
             "type": "git",
             "url": "https://github.com/sebastianbergmann/environment.git",
-            "reference": "67f55699c2810ff0f2cc47478bbdeda8567e68ee"
+            "reference": "be2c607e43ce4c89ecd60e75c6a85c126e754aea"
         },
         "dist": {
             "type": "zip",
-            "url": "https://files.phpcomposer.com/files/sebastianbergmann/environment/67f55699c2810ff0f2cc47478bbdeda8567e68ee.zip",
-            "reference": "67f55699c2810ff0f2cc47478bbdeda8567e68ee",
+            "url": "https://files.phpcomposer.com/files/sebastianbergmann/environment/be2c607e43ce4c89ecd60e75c6a85c126e754aea.zip",
+            "reference": "be2c607e43ce4c89ecd60e75c6a85c126e754aea",
             "shasum": ""
         },
         "require": {
             "php": "^5.3.3 || ^7.0"
         },
         "require-dev": {
-            "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.0"
+            "phpunit/phpunit": "^4.8 || ^5.0"
         },
-        "time": "2017-02-28T08:18:59+00:00",
+        "time": "2016-08-18T05:49:44+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1039,32 +987,32 @@
     },
     {
         "name": "sebastian/exporter",
-        "version": "1.2.x-dev",
-        "version_normalized": "1.2.9999999.9999999-dev",
+        "version": "1.2.2",
+        "version_normalized": "1.2.2.0",
         "source": {
             "type": "git",
             "url": "https://github.com/sebastianbergmann/exporter.git",
-            "reference": "dcd43bcc0fd3551bd2ede0081882d549bb78225d"
+            "reference": "42c4c2eec485ee3e159ec9884f95b431287edde4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://files.phpcomposer.com/files/sebastianbergmann/exporter/dcd43bcc0fd3551bd2ede0081882d549bb78225d.zip",
-            "reference": "dcd43bcc0fd3551bd2ede0081882d549bb78225d",
+            "url": "https://files.phpcomposer.com/files/sebastianbergmann/exporter/42c4c2eec485ee3e159ec9884f95b431287edde4.zip",
+            "reference": "42c4c2eec485ee3e159ec9884f95b431287edde4",
             "shasum": ""
         },
         "require": {
-            "php": "^5.3.3 || ^7.0",
-            "sebastian/recursion-context": "^1.0"
+            "php": ">=5.3.3",
+            "sebastian/recursion-context": "~1.0"
         },
         "require-dev": {
             "ext-mbstring": "*",
-            "phpunit/phpunit": "^4.8.35 || ^5.7 || ^6.0"
+            "phpunit/phpunit": "~4.4"
         },
-        "time": "2017-02-26T13:09:30+00:00",
+        "time": "2016-06-17T09:04:28+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "1.2.x-dev"
+                "dev-master": "1.3.x-dev"
             }
         },
         "installation-source": "source",
@@ -1108,29 +1056,29 @@
     },
     {
         "name": "sebastian/global-state",
-        "version": "1.1.x-dev",
-        "version_normalized": "1.1.9999999.9999999-dev",
+        "version": "1.1.1",
+        "version_normalized": "1.1.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/sebastianbergmann/global-state.git",
-            "reference": "cea85a84b00f2795341ebbbca4fa396347f2494e"
+            "reference": "bc37d50fea7d017d3d340f230811c9f1d7280af4"
         },
         "dist": {
             "type": "zip",
-            "url": "https://files.phpcomposer.com/files/sebastianbergmann/global-state/cea85a84b00f2795341ebbbca4fa396347f2494e.zip",
-            "reference": "cea85a84b00f2795341ebbbca4fa396347f2494e",
+            "url": "https://files.phpcomposer.com/files/sebastianbergmann/global-state/bc37d50fea7d017d3d340f230811c9f1d7280af4.zip",
+            "reference": "bc37d50fea7d017d3d340f230811c9f1d7280af4",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.3"
         },
         "require-dev": {
-            "phpunit/phpunit": "~4.2|~5.0"
+            "phpunit/phpunit": "~4.2"
         },
         "suggest": {
             "ext-uopz": "*"
         },
-        "time": "2017-02-23T14:11:06+00:00",
+        "time": "2015-10-12T03:26:01+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1161,8 +1109,8 @@
     },
     {
         "name": "sebastian/recursion-context",
-        "version": "1.0.x-dev",
-        "version_normalized": "1.0.9999999.9999999-dev",
+        "version": "1.0.5",
+        "version_normalized": "1.0.5.0",
         "source": {
             "type": "git",
             "url": "https://github.com/sebastianbergmann/recursion-context.git",
@@ -1253,26 +1201,23 @@
     },
     {
         "name": "symfony/polyfill-ctype",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "v1.8.0",
+        "version_normalized": "1.8.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/polyfill-ctype.git",
-            "reference": "9d31bef82d2e9b033f335d60b96611757f98c605"
+            "reference": "7cc359f1b7b80fc25ed7796be7d96adc9b354bae"
         },
         "dist": {
             "type": "zip",
-            "url": "https://files.phpcomposer.com/files/symfony/polyfill-ctype/9d31bef82d2e9b033f335d60b96611757f98c605.zip",
-            "reference": "9d31bef82d2e9b033f335d60b96611757f98c605",
+            "url": "https://files.phpcomposer.com/files/symfony/polyfill-ctype/7cc359f1b7b80fc25ed7796be7d96adc9b354bae.zip",
+            "reference": "7cc359f1b7b80fc25ed7796be7d96adc9b354bae",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.3"
         },
-        "suggest": {
-            "ext-ctype": "For best performance"
-        },
-        "time": "2018-05-17T18:32:56+00:00",
+        "time": "2018-04-30T19:57:29+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -1313,8 +1258,8 @@
     },
     {
         "name": "symfony/yaml",
-        "version": "3.4.x-dev",
-        "version_normalized": "3.4.9999999.9999999-dev",
+        "version": "v3.4.11",
+        "version_normalized": "3.4.11.0",
         "source": {
             "type": "git",
             "url": "https://github.com/symfony/yaml.git",
@@ -1374,17 +1319,17 @@
     },
     {
         "name": "webmozart/assert",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "version": "1.3.0",
+        "version_normalized": "1.3.0.0",
         "source": {
             "type": "git",
             "url": "https://github.com/webmozart/assert.git",
-            "reference": "53927dddf3afa2088b355188e143bba42159bf5d"
+            "reference": "0df1908962e7a3071564e857d86874dad1ef204a"
         },
         "dist": {
             "type": "zip",
-            "url": "https://files.phpcomposer.com/files/webmozart/assert/53927dddf3afa2088b355188e143bba42159bf5d.zip",
-            "reference": "53927dddf3afa2088b355188e143bba42159bf5d",
+            "url": "https://files.phpcomposer.com/files/webmozart/assert/0df1908962e7a3071564e857d86874dad1ef204a.zip",
+            "reference": "0df1908962e7a3071564e857d86874dad1ef204a",
             "shasum": ""
         },
         "require": {
@@ -1394,7 +1339,7 @@
             "phpunit/phpunit": "^4.6",
             "sebastian/version": "^1.0.1"
         },
-        "time": "2018-05-29T14:25:02+00:00",
+        "time": "2018-01-29T19:49:41+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {

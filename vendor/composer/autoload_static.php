@@ -15,10 +15,6 @@ class ComposerStaticInitf0ef498b5ad3034ea43dccd60cd93255
         array (
             'phpDocumentor\\Reflection\\' => 25,
         ),
-        'k' => 
-        array (
-            'kornrunner\\' => 11,
-        ),
         'X' => 
         array (
             'Xiongchao\\Secp256k1\\' => 20,
@@ -56,10 +52,6 @@ class ComposerStaticInitf0ef498b5ad3034ea43dccd60cd93255
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-        ),
-        'kornrunner\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/olegabr/keccak/src',
         ),
         'Xiongchao\\Secp256k1\\' => 
         array (

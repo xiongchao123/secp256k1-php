@@ -7,7 +7,6 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'phpDocumentor\\Reflection\\' => array($vendorDir . '/phpdocumentor/reflection-common/src', $vendorDir . '/phpdocumentor/reflection-docblock/src', $vendorDir . '/phpdocumentor/type-resolver/src'),
-    'kornrunner\\' => array($vendorDir . '/olegabr/keccak/src'),
     'Xiongchao\\Secp256k1\\' => array($baseDir . '/src'),
     'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
     'Test\\' => array($baseDir . '/test'),
