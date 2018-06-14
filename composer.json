@@ -1,30 +1,28 @@
 {
   "name": "xiongchao/secp256k1",
   "description": "Ethereum secp256k1 library in PHP",
-  "keywords": ["secp256k1", "secp256r1", "nistp192", "nistp224", "nistp256", "nistp384", "nistp521", "ECDSA", "diffie", "hellman", "ECDH", "elliptic", "curve", "phpecc"],
+  "keywords": ["bitwasp", "bitcoin", "php", "secp256k1", "ecc", "ecdsa", "cryptocurrency", "extension"],
   "type": "library",
   "license": "MIT",
   "authors": [
     {
       "name": "xiongchao",
-      "email": "xiongchao@yuanben.org"
+      "email": "805833031@qq.com"
     }
   ],
-  "minimum-stability": "stable",
+  "require":{
+      "illuminate/container":"v5.5.0"
+  },
   "require-dev": {
-    "phpunit/phpunit": "~4.0"
+    "phpunit/phpunit": "~6.0"
   },
   "autoload": {
     "psr-4": {
-      "Xiongchao\\Secp256k1\\": "src/"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
+      "Xiongchao\\Secp256k1\\": "src/",
       "Test\\": "test/"
-    }
-  },
-  "require": {
-    "mdanter/ecc": "^v0.5.0"
+    },
+    "files": [
+      "helpers.php"
+    ]
   }
 }

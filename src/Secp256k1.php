@@ -1,197 +1,140 @@
 <?php
-/**
- * This file is part of secp256k1 package.
- * 
- * (c) Kuan-Cheng,Lai <alk03073135@gmail.com>
- * 
- * @author Peter Lai <alk03073135@gmail.com>
- * @license MIT
- */
 
 namespace Xiongchao\Secp256k1;
 
-use InvalidArgumentException;
-use Mdanter\Ecc\EccFactory;
-use Mdanter\Ecc\Curves\CurveFactory;
-use Mdanter\Ecc\Curves\SecgCurve;
-use Mdanter\Ecc\Crypto\Signature\SignatureInterface;
-use Mdanter\Ecc\Random\RandomGeneratorFactory;
-use Xiongchao\Secp256k1\Serializer\HexPrivateKeySerializer;
-use Xiongchao\Secp256k1\Serializer\HexSignatureSerializer;
-use Xiongchao\Secp256k1\Signature\Signer;
 
 class Secp256k1
 {
     /**
-     * adapter
-     *
-     * @var \Mdanter\Ecc\Math\GmpMathInterface
+     * @var resource
      */
-    protected $adapter;
+    private $context;
+
 
     /**
-     * generator
-     *
-     * @var \Mdanter\Ecc\Primitives\Point
+     * 生成私钥
+     * @return string 32 bytes
      */
-    protected $generator;
-
-    /**
-     * deserializer
-     *
-     * @var \Xiongchao\Secp256k1\Serializer\HexPrivateKeySerializer
-     */
-    protected $deserializer;
-
-    /**
-     * algorithm
-     * 
-     * @var string
-     */
-    protected $algorithm;
-
-    /**
-     * construct
-     *
-     * @param string $hashAlgorithm
-     * @return void
-     */
-    public function __construct($hashAlgorithm='sha256')
+    public function generatePrivateKey()
     {
-        $this->adapter = EccFactory::getAdapter();
-        $this->generator = CurveFactory::getGeneratorByName(SecgCurve::NAME_SECP_256K1);
-        $this->deserializer = new HexPrivateKeySerializer($this->generator);
-        $this->algorithm = $hashAlgorithm;
+        do {
+            $key = \openssl_random_pseudo_bytes(32);
+        } while (secp256k1_ec_seckey_verify(self::_getContext(), $key) == 0);
+        return $key;
     }
 
     /**
-     * get
-     * 
-     * @param string $name
-     * @return mixed
+     * 生成公钥
+     * @param null $secretKey
+     * @return string
      */
-    public function __get($name)
+    public function generatePublicKey($secretKey = null)
     {
-        $method = 'get' . ucfirst($name);
+        isset($secretKey) ?: $secretKey = $this->generatePrivateKey();
+        $secretKey = str_pad($secretKey, 32, chr(0), STR_PAD_LEFT);;
+        $pubkey = '';
+        \secp256k1_ec_pubkey_create($this->_getContext(), $pubkey, $secretKey);
+        $serialized = '';
+        $fcompressed = true;
+        secp256k1_ec_pubkey_serialize($this->_getContext(), $serialized, $pubkey, $fcompressed);
+        return bin2hex($serialized);
+    }
 
-        if (method_exists($this, $method)) {
-            return call_user_func_array([$this, $method], []);
+    /**
+     * @param $content
+     * @return string
+     */
+    public function getContentHash($content)
+    {
+        return hash("sha256",$content,true);
+    }
+
+    /**
+     * @param $msg32Bytes
+     * @param $priKey
+     * @param $metadataArr
+     * @return string
+     * @throws \Exception
+     */
+    public function getSign($msg32Bytes,$priKey, $metadataArr)
+    {
+        $signature = '';
+        if (secp256k1_ecdsa_sign_recoverable($this->_getContext(), $signature, $msg32Bytes, $priKey) != 1) {
+            throw new \Exception("Failed to create recoverable signature");
+        }
+        $recId = 0;
+        $output = '';
+        secp256k1_ecdsa_recoverable_signature_serialize_compact($this->_getContext(), $signature, $output, $recId);
+        $signatureNative = bin2hex($output) . dechex($recId + 27);
+        return $signatureNative;
+    }
+
+    /**
+     * @param $msg32Bytes
+     * @param $publicKey
+     * @param $sign
+     * @return bool
+     */
+    public function verifySign($msg32Bytes, $publicKey, $sign)
+    {
+        $context = secp256k1_context_create(SECP256K1_CONTEXT_SIGN | SECP256K1_CONTEXT_VERIFY);
+        $recId = hexdec(substr($sign, 128, 2)) - 27;
+        $siginput = hex2bin(substr($sign, 0, 128));
+        $signature = '';
+        secp256k1_ecdsa_recoverable_signature_parse_compact($context, $signature, $siginput, $recId);
+        $pubKey = '';
+        secp256k1_ecdsa_recover($context, $pubKey, $signature, $msg32Bytes);
+        $serialized = '';
+        $compress = 1;
+        secp256k1_ec_pubkey_serialize($context, $serialized, $pubKey, $compress);
+        $pubkeyNative = bin2hex($serialized);
+        if (strcmp($publicKey, $pubkeyNative) == 0) {
+            //如果本地计算的公钥和服务器返回的公钥一致就说明签名正确
+            return true;
         }
         return false;
     }
 
     /**
-     * set
-     * 
-     * @param string $name
-     * @param mixed $value
-     * @return bool
+     * @return resource
      */
-    public function __set($name, $value)
+    private function _getContext()
     {
-        $method = 'set' . ucfirst($name);
-
-        if (method_exists($this, $method)) {
-            return call_user_func_array([$this, $method], [$value]);
+        if ($this->context == null) {
+            $this->context = \secp256k1_context_create(SECP256K1_CONTEXT_SIGN | SECP256K1_CONTEXT_VERIFY);
         }
-        return false;
+        return $this->context;
+    }
+
+    private function _pack($string)
+    {
+        if (strlen($string) % 2 !== 0) {
+            $string = '0' . $string;
+        }
+        return pack("H*", $string);
+    }
+
+    private function _unpack($str)
+    {
+        return unpack("H*", $str)[1];
+    }
+
+    private function _toBinary32($str)
+    {
+        return str_pad(pack("H*", (string)$str), 32, chr(0), STR_PAD_LEFT);
+    }
+
+    private function _base36Encode($strNum)
+    {
+        $base36 = gmp_strval(gmp_init($strNum, 16), 36);
+        return strtoupper($base36);
     }
 
     /**
-     * getDeserializer
-     * 
-     * @return \Xiongchao\Secp256k1\Serializer\HexPrivateKeySerializer
+     * @return string
      */
-    // public function getDeserializer()
-    // {
-    //     return $this->deserializer;
-    // }
-
-    /**
-     * sign
-     * 
-     * @param string $hash
-     * @param string $privateKey
-     * @param array $options
-     * @return \Mdanter\Ecc\Crypto\Signature\SignatureInterface
-     */
-    public function sign(string $hash, string $privateKey, array $options=[]): SignatureInterface
+    private function _generateId()
     {
-        $key = $this->deserializer->parse($privateKey);
-        $hash = gmp_init($hash, 16);
-
-        if (!isset($options['n'])) {
-            $random = RandomGeneratorFactory::getHmacRandomGenerator($key, $hash, $this->algorithm);
-            $n = $this->generator->getOrder();
-            $randomK = $random->generate($n);
-
-            $options['n']  = $n;
-        }
-        if (!isset($options['canonical'])) {
-            $options['canonical'] = true;
-        }
-        $signer = new Signer($this->adapter, $options);
-
-        return $signer->sign($key, $hash, $randomK);
-    }
-
-    /**
-     * verify
-     * 
-     * @param string $hash
-     * @param \Mdanter\Ecc\Crypto\Signature\SignatureInterface $signature
-     * @param string $publicKey
-     * @return bool
-     */
-    public function verify(string $hash, SignatureInterface $signature, string $publicKey): bool
-    {
-        $gmpKey = $this->decodePoint($publicKey);
-        $key = $this->generator->getPublickeyFrom($gmpKey[0], $gmpKey[1]);
-        $hash = gmp_init($hash, 16);
-        $signer = new Signer($this->adapter);
-
-        return $signer->verify($key, $signature, $hash);
-    }
-
-    /**
-     * decodePoint
-     * 
-     * @param string $publicKey
-     * @return array
-     */
-    protected function decodePoint(string $publicKey): array
-    {
-        $order = gmp_strval($this->generator->getOrder(), 16);
-        $length = mb_strlen($order);
-        $keyLength = mb_strlen($publicKey);
-        $num = hexdec(mb_substr($publicKey, 0, 2));
-
-        if (
-            ($num === 4 || $num === 6 || $num === 7) &&
-            ($length * 2 + 2) === $keyLength
-            ) {
-            $x = gmp_init(mb_substr($publicKey, 2, $length), 16);
-            $y = gmp_init(mb_substr($publicKey, ($length + 2), $length), 16);
-
-            if ($this->generator->isValid($x, $y) !== true) {
-                throw new InvalidArgumentException('Invalid public key point x and y.');
-            }
-
-            $res = [
-                $x, $y
-            ];
-            return $res;
-        } elseif (
-            ($num === 2 || $num === 3) &&
-            ($length + 2) === $keyLength
-        ) {
-            $x = gmp_init(mb_substr($publicKey, 2, $length), 16);
-            $y = $this->generator->getCurve()->recoverYfromX($num === 3, $x);
-            $res = [
-                $x, $y
-            ];
-            return $res;
-        }
-        throw new InvalidArgumentException('Invalid public key point format.');
+        return uniqid('php_', true);
     }
 }
