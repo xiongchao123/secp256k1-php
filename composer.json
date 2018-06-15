@@ -11,15 +11,12 @@
     }
   ],
   "require":{
+      "php": ">=7.0",
       "illuminate/container":"v5.5.0"
-  },
-  "require-dev": {
-    "phpunit/phpunit": "~6.0"
   },
   "autoload": {
     "psr-4": {
-      "Xiongchao\\Secp256k1\\": "src/",
-      "Test\\": "test/"
+      "Xiongchao\\Secp256k1\\": "src/"
     },
     "files": [
       "helpers.php"

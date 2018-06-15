@@ -19,3 +19,17 @@ if (! function_exists('app')) {
         return Container::getInstance()->make($make, $parameters);
     }
 }
+
+
+if (!function_exists('dd')) {
+    /**
+     * @param mixed ...$args
+     */
+    function dd(...$args)
+    {
+        foreach ($args as $v) {
+            var_dump($v);
+        }
+        die;
+    }
+}

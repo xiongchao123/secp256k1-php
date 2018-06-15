@@ -35,8 +35,8 @@ class Secp256k1
         $pubkey = '';
         \secp256k1_ec_pubkey_create($this->_getContext(), $pubkey, $secretKey);
         $serialized = '';
-        $fcompressed = true;
-        secp256k1_ec_pubkey_serialize($this->_getContext(), $serialized, $pubkey, $fcompressed);
+        $compressed = true;
+        secp256k1_ec_pubkey_serialize($this->_getContext(), $serialized, $pubkey, $compressed);
         return bin2hex($serialized);
     }
 
@@ -46,20 +46,20 @@ class Secp256k1
      */
     public function getContentHash($content)
     {
-        return hash("sha256",$content,true);
+        return hash("sha256", $content);
     }
 
     /**
-     * @param $msg32Bytes
-     * @param $priKey
-     * @param $metadataArr
+     * 可恢复的
+     * @param $privateKey
+     * @param $msg32
      * @return string
      * @throws \Exception
      */
-    public function getSign($msg32Bytes,$priKey, $metadataArr)
+    public function getRecoverableSign($privateKey, $msg32)
     {
         $signature = '';
-        if (secp256k1_ecdsa_sign_recoverable($this->_getContext(), $signature, $msg32Bytes, $priKey) != 1) {
+        if (secp256k1_ecdsa_sign_recoverable($this->_getContext(), $signature, $msg32, $privateKey) != 1) {
             throw new \Exception("Failed to create recoverable signature");
         }
         $recId = 0;
@@ -70,12 +70,30 @@ class Secp256k1
     }
 
     /**
-     * @param $msg32Bytes
+     * @param $privateKey
+     * @param $msg32
+     * @return string
+     * @throws \Exception
+     */
+    public function getSign($privateKey, $msg32)
+    {
+        $signature = '';
+        if (1 !== secp256k1_ecdsa_sign($this->_getContext(), $signature, $msg32, $privateKey)) {
+            throw new \Exception("Failed to create signature");
+        }
+        $serialized = '';
+        secp256k1_ecdsa_signature_serialize_der($this->_getContext(), $serialized, $signature);
+        $sign = bin2hex($serialized);
+        return $sign;
+    }
+
+    /**
      * @param $publicKey
      * @param $sign
+     * @param $msg32
      * @return bool
      */
-    public function verifySign($msg32Bytes, $publicKey, $sign)
+    public function verifyRecoverableSign($publicKey, $sign, $msg32)
     {
         $context = secp256k1_context_create(SECP256K1_CONTEXT_SIGN | SECP256K1_CONTEXT_VERIFY);
         $recId = hexdec(substr($sign, 128, 2)) - 27;
@@ -83,9 +101,9 @@ class Secp256k1
         $signature = '';
         secp256k1_ecdsa_recoverable_signature_parse_compact($context, $signature, $siginput, $recId);
         $pubKey = '';
-        secp256k1_ecdsa_recover($context, $pubKey, $signature, $msg32Bytes);
+        secp256k1_ecdsa_recover($context, $pubKey, $signature, $msg32);
         $serialized = '';
-        $compress = 1;
+        $compress = true;
         secp256k1_ec_pubkey_serialize($context, $serialized, $pubKey, $compress);
         $pubkeyNative = bin2hex($serialized);
         if (strcmp($publicKey, $pubkeyNative) == 0) {
@@ -93,6 +111,38 @@ class Secp256k1
             return true;
         }
         return false;
+    }
+
+    /**
+     * @param $publicKey
+     * @param $sign
+     * @param $msg32
+     * @return bool
+     * @throws \Exception
+     */
+    public function verifySign($publicKey, $sign, $msg32)
+    {
+        $publicKeyRaw = hex2bin($publicKey);
+        $signatureRaw = hex2bin($sign);
+        // Load up the public key from its bytes (into $publicKey):
+        /** @var resource $publicKey */
+        $pubKey = '';
+        if (1 !== secp256k1_ec_pubkey_parse($this->_getContext(), $pubKey, $publicKeyRaw)) {
+            throw new \Exception("Failed to parse public key");
+        }
+        // Load up the signature from its bytes (into $signature):
+        /** @var resource $signature */
+        $signature = '';
+        if (1 !== secp256k1_ecdsa_signature_parse_der($this->_getContext(), $signature, $signatureRaw)) {
+            throw new \Exception("Failed to parse DER signature");
+        }
+        // Verify:
+        $result = secp256k1_ecdsa_verify($this->_getContext(), $signature, $msg32, $pubKey);
+        if ($result == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -106,7 +156,7 @@ class Secp256k1
         return $this->context;
     }
 
-    private function _pack($string)
+    public function _pack($string)
     {
         if (strlen($string) % 2 !== 0) {
             $string = '0' . $string;
@@ -114,17 +164,17 @@ class Secp256k1
         return pack("H*", $string);
     }
 
-    private function _unpack($str)
+    public function _unpack($str)
     {
         return unpack("H*", $str)[1];
     }
 
-    private function _toBinary32($str)
+    public function _toBinary32($str)
     {
         return str_pad(pack("H*", (string)$str), 32, chr(0), STR_PAD_LEFT);
     }
 
-    private function _base36Encode($strNum)
+    public function _base36Encode($strNum)
     {
         $base36 = gmp_strval(gmp_init($strNum, 16), 36);
         return strtoupper($base36);
@@ -133,7 +183,7 @@ class Secp256k1
     /**
      * @return string
      */
-    private function _generateId()
+    public function _generateId()
     {
         return uniqid('php_', true);
     }
