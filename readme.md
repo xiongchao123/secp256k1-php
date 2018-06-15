@@ -9,7 +9,7 @@
 > 本包依赖于secp256k1库,安装secp256k1库请参考[secp256k1-php](https://github.com/Bit-Wasp/secp256k1-php)进行安装
 
 * git 安装
-> git clone https://github.com/xiongchao123/https://github.com/xiongchao123/secp256k1-php.git & composer install
+> git clone https://github.com/xiongchao123/secp256k1-php.git & composer install
 
 * composer 安装
 > composer require xiongchao/secp256k1-php
